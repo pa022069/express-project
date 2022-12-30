@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-module.exports = {
+export default {
   db: {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -14,4 +14,4 @@ module.exports = {
   port: 3310,
   // 自訂密碼的加鹽
   salt: '@2#!A9x?3'
-};
+}

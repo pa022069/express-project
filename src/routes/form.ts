@@ -1,15 +1,16 @@
-const express = require('express');
-const form = require('../models/form');
-const postMail = require('../models/email');
+import express, { Request, Response } from 'express';
+import form from '../models/form';
+import postMail from '../models/email';
+import formController from '../controllers/form';
+
 const router = express.Router();
-const formController = require('../controllers/form');
 
 router.route('/')
   .get(formController.callSuccess);
 
 router.route('/:id')
-  .get(function (req, res) {
-    form.item(req, function (err, results) {
+  .get(function (req: Request, res: Response) {
+    form.item(req, function (err: any, results: any) {
       if (err) {
         res.sendStatus(500);
         return console.error(err);
@@ -24,4 +25,4 @@ router.route('/:id')
     });
   })
 
-module.exports = router;
+export default router;

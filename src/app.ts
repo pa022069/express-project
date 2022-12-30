@@ -1,10 +1,11 @@
-const bodyparser = require('body-parser');    // 解析 HTTP 請求主體的中介軟體
-const express = require('express');
-const config = require('./utils/config');
-const password = require('./utils/crypto');
+import express, { Request, Response } from 'express';
+import bodyparser from 'body-parser';// 解析 HTTP 請求主體的中介軟體
+import config from './utils/config';
+import password from './utils/crypto';
+import cors from 'cors';
+import form from './routes/form';
+
 const app = express();
-const cors = require('cors');
-const form = require('./routes/form');
 
 app.use(cors({
   origin: '*',
@@ -19,7 +20,7 @@ app.use(bodyparser.json({ limit: '1mb' }));
 
 app.use(password.passwdCrypto);
 
-app.get('/', (req: any, res: any) => {
+app.get('/', (req: Request, res: Response) => {
   res.send('Hello World');
 })
 app.use('/form', form);
