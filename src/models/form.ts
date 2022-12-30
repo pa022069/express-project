@@ -1,21 +1,36 @@
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import mysql from 'mysql';
 import conf from '../utils/config';
 
-const connection = mysql.createConnection(conf.db);
-let sql = '';
+const connectServer = (_sql: string, _callback: any) => {
+  const connection = mysql.createConnection(conf.db);
+  connection.connect();
+  connection.query(_sql, {}, function (err, results) {
+    _callback();
+    connection.end();
+  });
+};
 
 export default {
-  items: function (req: Request, callback: any) {
-    sql = 'SELECT * FROM formdata';
-    return connection.query(sql, callback);
+  items: (req: Request, res: Response, callback: any) => {
+    const sql = 'SELECT * FROM formdata';
+    connectServer(sql, () => {
+      res.status(400).send({
+        message: '已登入過信箱，請輸入其他信箱地址。'
+      })
+    })
   },
-  item: function (req: Request, callback: any) {
-    sql = mysql.format('SELECT * FROM formdata WHERE id = ?', [req.params.id]);
-    return connection.query(sql, callback);
+  item: (req: Request, res: Response, callback: any) => {
+    const sql = 'SELECT * FROM formdata';
+    connectServer(sql, () => {
+      res.status(400).send({
+        message: '已登入過信箱，請輸入其他信箱地址。'
+      })
+    })
   },
-  add: function (req: Request, callback: any) {
-    sql = mysql.format('INSERT INTO formdata SET ?', req.body);
-    return connection.query(sql, callback);
-  },
+  // add: function (req: Request, callback: any) {
+  //   const connection = mysql.createConnection(conf.db);
+  //   sql = mysql.format('INSERT INTO formdata SET ?', req.body);
+  //   return connection.query(sql, callback);
+  // },
 };
