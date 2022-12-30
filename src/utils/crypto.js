@@ -1,5 +1,5 @@
-var crypto = require('crypto'); // 加解密軟體 (內建模組)
-var conf = require('./config');
+const crypto = require('crypto'); // 加解密軟體 (內建模組)
+const conf = require('./config');
 
 module.exports = {
   // 將明文密碼加密

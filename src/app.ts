@@ -1,7 +1,7 @@
 const bodyparser = require('body-parser');    // 解析 HTTP 請求主體的中介軟體
 const express = require('express');
 const config = require('./utils/config');
-const crypto = require('./utils/crypto');
+const password = require('./utils/crypto');
 const app = express();
 const cors = require('cors');
 const form = require('./routes/form');
@@ -17,9 +17,9 @@ app.use(cors({
 app.use(bodyparser.urlencoded({ limit: '1mb', extended: true }));
 app.use(bodyparser.json({ limit: '1mb' }));
 
-app.use(crypto.passwdCrypto);
+app.use(password.passwdCrypto);
 
-app.get('/', (req, res) => {
+app.get('/', (req: any, res: any) => {
   res.send('Hello World');
 })
 app.use('/form', form);
