@@ -1,4 +1,4 @@
-import { EmailOptionType } from '../type/emailType';
+import { EmailOptionType } from '../typings/emailType';
 import nodemailer from 'nodemailer';
 import conf from '../utils/config';
 
